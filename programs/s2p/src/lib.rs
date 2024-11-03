@@ -1,9 +1,9 @@
 use anchor_lang::prelude::*;
 
-declare_id!("9qpG5L48T871jkAHkb5pgXABQf5eZY7bU7LYjiJZKUHb");
+declare_id!("7Cx4kbXPqyhrToJ8sxuHbAmVtzProUaZzXhTHy9StozD");
 
 #[program]
-pub mod temp {
+pub mod s2p {
     use super::*;
 
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
