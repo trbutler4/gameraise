@@ -50,7 +50,9 @@ function AuthContent() {
 
   useEffect(() => {
     if (user) {
-      router.push("/dashboard")
+      router.push("/home")
+      // NOTE: this is the default turnkey dashboard
+      //router.push("/dashboard")
     }
   }, [user, router])
 
