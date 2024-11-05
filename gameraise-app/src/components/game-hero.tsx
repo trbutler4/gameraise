@@ -1,5 +1,7 @@
 "use client"
 
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+
 interface GameHeroProps {
   title: string
   description: string
@@ -16,29 +18,28 @@ export default function GameHero({
   requestedDuration,
 }: GameHeroProps) {
   return (
-    <div className="w-4/5 rounded-sm border p-8">
-      <div className="flex flex-row">
-        <div className="flex flex-col">
-          <div>{title}</div>
-          <div>{description}</div>
-          <button
-            onClick={() => console.log("TODO: fund game with user balance")}
-          >
-            Fund
-          </button>
-        </div>
-        <div>
-          <div className="h-48 w-12 overflow-hidden bg-blue-500">
-            <div
-              className="w-full bg-gray-200"
-              style={{
-                height: `${(currentAmount / requestedAmount) * 100}%`,
-                marginTop: `auto`,
-              }}
-            ></div>
+    <Card>
+      <CardHeader className="flex flex-row">
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-row">
+          <div className="flex flex-col">
+            <div>{description}</div>
+          </div>
+          <div className="mx-6">
+            <div className="h-48 w-12 overflow-hidden bg-blue-500">
+              <div
+                className="w-full bg-gray-200"
+                style={{
+                  height: `${(currentAmount / requestedAmount) * 100}%`,
+                  marginTop: `auto`,
+                }}
+              ></div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
