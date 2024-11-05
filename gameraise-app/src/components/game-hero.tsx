@@ -1,6 +1,8 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+import { Button } from "@/components/ui/button"
+
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
 
 interface GameHeroProps {
   title: string
@@ -23,12 +25,16 @@ export default function GameHero({
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-row">
-          <div className="flex flex-col">
-            <div>{description}</div>
+        <div className="flex h-48 flex-row justify-between">
+          <div className="flex h-full flex-col justify-start">
+            <div className="mb-auto">{description}</div>
+            <div className="mt-4 w-full space-x-4">
+              <Button>Read More</Button>
+              <Button>Fund</Button>
+            </div>
           </div>
           <div className="mx-6">
-            <div className="h-48 w-12 overflow-hidden bg-blue-500">
+            <div className="h-full w-12 overflow-hidden bg-blue-500">
               <div
                 className="w-full bg-gray-200"
                 style={{
