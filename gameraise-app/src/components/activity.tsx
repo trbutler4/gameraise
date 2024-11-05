@@ -22,6 +22,8 @@ import {
 
 import { ScrollArea } from "./ui/scroll-area"
 
+// TODO: update this to show funding activity
+
 export default function Activity() {
   const { transactions: allTransactions, loading } = useTransactions()
   const { ethPrice } = useTokenPrice()

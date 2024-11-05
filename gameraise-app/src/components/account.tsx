@@ -10,6 +10,7 @@ import {
   LogOutIcon,
   PlusCircleIcon,
   SettingsIcon,
+  UserIcon,
 } from "lucide-react"
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon"
 
@@ -94,6 +95,10 @@ export default function Account() {
         align="end"
         className=" w-80 bg-background text-foreground"
       >
+        <DropdownMenuItem onClick={() => router.push("/dashboard")}>
+          <UserIcon className="mr-2 h-4 w-4" />
+          <span>Account</span>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/settings")}>
           <SettingsIcon className="mr-2 h-4 w-4" />
