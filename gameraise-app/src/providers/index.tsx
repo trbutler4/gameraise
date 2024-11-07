@@ -6,6 +6,7 @@ import { turnkeyConfig } from "@/config/turnkey"
 
 import { AuthProvider } from "./auth-provider"
 import { ThemeProvider } from "./theme-provider"
+import { WalletsProvider } from "./wallet-provider"
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -23,7 +24,9 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({
         defaultOrganizationId: turnkeyConfig.organizationId,
       }}
     >
-      <AuthProvider> {children}</AuthProvider>
+      <AuthProvider>
+        <WalletsProvider>{children}</WalletsProvider>
+      </AuthProvider>
     </TurnkeyProvider>
   </ThemeProvider>
 )

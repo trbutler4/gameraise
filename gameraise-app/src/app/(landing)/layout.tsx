@@ -10,10 +10,8 @@ export default function DashboardLayout({
 }) {
   return (
     <main className=" h-screen bg-muted/40 dark:bg-neutral-950/80">
-      <WalletsProvider>
-        <NavMenu />
-        <div className="">{children}</div>
-      </WalletsProvider>
+      <NavMenu />
+      <div className="">{children}</div>
       <Toaster />
     </main>
   )
