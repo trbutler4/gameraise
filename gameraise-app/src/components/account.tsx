@@ -64,7 +64,7 @@ export default function Account() {
     logout()
   }
 
-  return (
+  return user?.email ? (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger className="dark" asChild>
         <Button
@@ -73,16 +73,9 @@ export default function Account() {
         >
           <div className="flex items-center gap-3">
             <AccountAvatar address={selectedAccount?.address} />
-            {user?.email ? (
-              <div className="text-left">
-                <div className="text-sm font-semibold ">{user.email}</div>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-1">
-                <Skeleton className="h-3 w-12  rounded-[3px]" />
-                <Skeleton className="h-3 w-[120px] rounded-[3px]" />
-              </div>
-            )}
+            <div className="text-left">
+              <div className="text-sm font-semibold ">{user.email}</div>
+            </div>
           </div>
           {isOpen ? (
             <ChevronUpIcon className="hidden h-4 w-4 text-muted-foreground sm:block" />
@@ -110,5 +103,9 @@ export default function Account() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  ) : (
+    <Button className="bg-white" onClick={() => router.push("/login")}>
+      <div className="font-lg text-black">Get Started</div>
+    </Button>
   )
 }

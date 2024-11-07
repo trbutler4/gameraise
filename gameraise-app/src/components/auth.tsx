@@ -1,6 +1,7 @@
 "use client"
 
 import { Suspense, useEffect, useState } from "react"
+import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useAuth } from "@/providers/auth-provider"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -23,6 +24,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
+import gameraiseLogo from "../../public/gameraise_logo 3.png"
 import AppleAuth from "./apple-auth"
 import FacebookAuth from "./facebook-auth"
 import GoogleAuth from "./google-auth"
@@ -47,14 +49,6 @@ function AuthContent() {
       email: "",
     },
   })
-
-  useEffect(() => {
-    if (user) {
-      router.push("/home")
-      // NOTE: this is the default turnkey dashboard
-      //router.push("/dashboard")
-    }
-  }, [user, router])
 
   useEffect(() => {
     const qsError = searchParams.get("error")
@@ -95,7 +89,7 @@ function AuthContent() {
     <>
       <Card className="mx-auto w-full max-w-[450px]">
         <CardHeader className="space-y-4">
-          <Icons.turnkey className="h-16 w-full stroke-0 py-2 dark:stroke-white" />
+          <Image src={gameraiseLogo} alt="gameraise logo auth" />
           <CardTitle className="text-center text-xl font-medium">
             Log in or sign up
           </CardTitle>

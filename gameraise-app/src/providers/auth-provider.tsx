@@ -167,7 +167,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               type: "COMPLETE_EMAIL_AUTH",
               payload: loginResponseToUser(loginResponse),
             })
-            router.push("/dashboard")
+            router.push("/")
           }
         }
       } catch (error: any) {
@@ -190,7 +190,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             type: "PASSKEY",
             payload: loginResponseToUser(loginResponse),
           })
-          router.push("/dashboard")
+          router.push("/")
         }
       } else {
         // User either does not have an account with a sub organization
@@ -230,7 +230,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               "@turnkey/current_user",
               JSON.stringify(currentUser)
             )
-            router.push("/dashboard")
+            router.push("/")
           }
         }
       }
@@ -284,7 +284,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
               type: "OAUTH",
               payload: loginResponseToUser(loginResponse),
             })
-            router.push("/dashboard")
+            router.push("/")
           }
         }
       }
@@ -310,7 +310,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     await turnkey?.logoutUser()
     googleLogout()
-    router.push("/")
+
+    console.log("logging out")
+    router.push("/login")
   }
 
   return (

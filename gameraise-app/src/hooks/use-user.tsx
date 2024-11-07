@@ -18,7 +18,6 @@ export const useUser = () => {
 
         // If the user is not found, we assume the user is not logged in
         if (!currentUser) {
-          router.push("/")
           return
         }
 
@@ -57,7 +56,7 @@ export const useUser = () => {
     if (turnkey) {
       await turnkey.logoutUser()
       setUser(undefined)
-      router.push("/")
+      router.push("/login")
     }
   }
 
