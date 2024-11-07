@@ -53,7 +53,7 @@ function AccountAvatar({ address }: { address: string | undefined }) {
 export default function Account() {
   const router = useRouter()
   const { logout } = useAuth()
-  const { user } = useUser()
+  const { user, loading } = useUser()
   const { state, newWallet, newWalletAccount, selectWallet, selectAccount } =
     useWallets()
   const { selectedWallet, selectedAccount, wallets } = state
@@ -64,7 +64,19 @@ export default function Account() {
     logout()
   }
 
-  return user?.email ? (
+  if (loading) {
+    return <Skeleton className="h-12 w-52" />
+  }
+
+  if (!user) {
+    return (
+      <Button className="bg-white" onClick={() => router.push("/login")}>
+        <div className="font-lg text-black">Get Started</div>
+      </Button>
+    )
+  }
+
+  return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger className="dark" asChild>
         <Button
@@ -73,9 +85,11 @@ export default function Account() {
         >
           <div className="flex items-center gap-3">
             <AccountAvatar address={selectedAccount?.address} />
-            <div className="text-left">
-              <div className="text-sm font-semibold ">{user.email}</div>
-            </div>
+            {/*
+              <div className="text-left">
+                <div className="text-sm font-semibold ">{user.email}</div>
+              </div>
+              */}
           </div>
           {isOpen ? (
             <ChevronUpIcon className="hidden h-4 w-4 text-muted-foreground sm:block" />
@@ -103,9 +117,5 @@ export default function Account() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  ) : (
-    <Button className="bg-white" onClick={() => router.push("/login")}>
-      <div className="font-lg text-black">Get Started</div>
-    </Button>
   )
 }
