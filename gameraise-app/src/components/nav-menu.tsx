@@ -3,7 +3,6 @@ import Link from "next/link"
 
 import gameraiseLogo from "../../public/gameraise_logo 3.png"
 import Account from "./account"
-import { Icons } from "./icons"
 
 export default function NavMenu() {
   return (
