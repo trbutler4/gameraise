@@ -30,23 +30,24 @@ export default function Landing() {
               <Image
                 src={arbitrumLogo}
                 alt="Arbitrum Logo"
-                width={100}
-                height={100}
+                width={225}
+                height={225}
               />
               <Image
                 src={avaxLogo}
                 alt="Avalanche Logo"
-                width={100}
-                height={100}
+                width={225}
+                height={225}
               />
-              <Image src={baseLogo} alt="Base Logo" width={100} height={100} />
+              <Image src={baseLogo} alt="Base Logo" width={225} height={225} />
               <Image
                 src={starknetLogo}
                 alt="StarkNet Logo"
-                width={100}
-                height={100}
+                width={225}
+                height={225}
               />
             </div>
+            <div>Get early access to on-chain game communities</div>
           </div>
         </div>
       </>
