@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/providers/auth-provider"
 import { useWallets } from "@/providers/wallet-provider"
@@ -35,6 +35,10 @@ import { Skeleton } from "./ui/skeleton"
 export default function GetGaming() {
   const [games, setGames] = useState<any[]>([])
   const router = useRouter()
+  const [selectedEcosystem, setSelectedEcosystem] = useState<string | null>(
+    null
+  )
+  const [selectedStatus, setSelectedStatus] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -54,17 +58,31 @@ export default function GetGaming() {
     fetchGames()
   }, [])
 
+  const filteredGames = useMemo(() => {
+    return games.filter((game) => {
+      const ecosystemMatch =
+        !selectedEcosystem || game.platform === selectedEcosystem
+      const statusMatch =
+        !selectedStatus ||
+        (selectedStatus === "live" && game.is_live) ||
+        (selectedStatus === "proposed" && game.is_proposed) ||
+        (selectedStatus === "active" && game.is_active)
+
+      return ecosystemMatch && statusMatch
+    })
+  }, [games, selectedEcosystem, selectedStatus])
+
   return (
     <div>
       <div className="my-8 flex items-center justify-center text-xl text-white">
         Welcome to the Dungeon
       </div>
       <div className="mb-12 flex flex-row space-x-12 px-12">
-        <EcosystemDropdown />
-        <StatusDropdown />
+        <EcosystemDropdown onEcosystemChange={setSelectedEcosystem} />
+        <StatusDropdown onStatusChange={setSelectedStatus} />
       </div>
       <div className="flex flex-col justify-evenly space-y-8 px-12">
-        {games.map((game) => (
+        {filteredGames.map((game) => (
           <GameHero
             title={game.title}
             description={game.description}
@@ -84,7 +102,11 @@ export default function GetGaming() {
   )
 }
 
-function StatusDropdown() {
+function StatusDropdown({
+  onStatusChange,
+}: {
+  onStatusChange: (status: string) => void
+}) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -102,16 +124,16 @@ function StatusDropdown() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className=" w-80 bg-black text-white">
-        <DropdownMenuItem onClick={() => console.log("TODO")}>
+      <DropdownMenuContent align="end" className="w-80 bg-black text-white">
+        <DropdownMenuItem onClick={() => onStatusChange("live")}>
           live
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log("TODO")}>
+        <DropdownMenuItem onClick={() => onStatusChange("proposed")}>
           proposed
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log("TODO")}>
+        <DropdownMenuItem onClick={() => onStatusChange("active")}>
           active
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -119,7 +141,11 @@ function StatusDropdown() {
   )
 }
 
-function EcosystemDropdown() {
+function EcosystemDropdown({
+  onEcosystemChange,
+}: {
+  onEcosystemChange: (ecosystem: string) => void
+}) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -137,16 +163,16 @@ function EcosystemDropdown() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className=" w-80 bg-black text-white">
-        <DropdownMenuItem onClick={() => console.log("TODO")}>
+      <DropdownMenuContent align="end" className="w-80 bg-black text-white">
+        <DropdownMenuItem onClick={() => onEcosystemChange("starknet")}>
           Starknet
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log("TODO")}>
+        <DropdownMenuItem onClick={() => onEcosystemChange("arbitrum")}>
           Arbitrum
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => console.log("TODO")}>
+        <DropdownMenuItem onClick={() => onEcosystemChange("avalanche")}>
           Avalanche
         </DropdownMenuItem>
       </DropdownMenuContent>
