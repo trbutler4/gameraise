@@ -23,8 +23,14 @@ import { Input } from "@/components/ui/input"
 const formSchema = z.object({
   title: z.string().min(1).max(50),
   description: z.string().min(25).max(140),
+  author: z.string().min(1).max(50),
   amount: z.number(),
   duration: z.number(),
+  github_url: z.string(),
+  twitter_url: z.string(),
+  discord_url: z.string(),
+  website_url: z.string(),
+  platform: z.string(),
 })
 
 export default function ApplicationPage() {
@@ -75,6 +81,71 @@ function ApplicationForm() {
               <FormDescription>
                 Everything a backer needs to know about your game.
               </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="author"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Game Studio/Author</FormLabel>
+              <FormControl>
+                <Input placeholder="Ubisoft" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="github_url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Github Link</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="twitter_url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Twitter Link</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="discord_url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Discord Link</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="website_url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Website Link</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

@@ -85,11 +85,9 @@ export default function Account() {
         >
           <div className="flex items-center gap-3">
             <AccountAvatar address={selectedAccount?.address} />
-            {/*
-              <div className="text-left">
-                <div className="text-sm font-semibold ">{user.email}</div>
-              </div>
-              */}
+            <div className="text-left">
+              <div className="text-sm font-semibold ">{user.email}</div>
+            </div>
           </div>
           {isOpen ? (
             <ChevronUpIcon className="hidden h-4 w-4 text-muted-foreground sm:block" />
