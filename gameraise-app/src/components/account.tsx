@@ -90,7 +90,9 @@ export default function Account() {
           <div className="flex items-center gap-3">
             <AccountAvatar address={selectedAccount?.address} />
             <div className="text-left">
-              <div className="text-sm font-semibold ">{user.email}</div>
+              <div className="text-sm font-semibold text-white">
+                {user.email}
+              </div>
             </div>
           </div>
           {isOpen ? (
@@ -100,10 +102,7 @@ export default function Account() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="end"
-        className=" w-80 bg-background text-foreground"
-      >
+      <DropdownMenuContent align="end" className=" w-80 text-white">
         <DropdownMenuItem onClick={() => router.push("/dashboard")}>
           <UserIcon className="mr-2 h-4 w-4" />
           <span>Account</span>
