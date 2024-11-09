@@ -102,7 +102,7 @@ export default function Account() {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className=" w-80 text-white">
+      <DropdownMenuContent align="end" className=" w-80 bg-black text-white">
         <DropdownMenuItem onClick={() => router.push("/dashboard")}>
           <UserIcon className="mr-2 h-4 w-4" />
           <span>Account</span>

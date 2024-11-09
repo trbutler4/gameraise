@@ -57,6 +57,23 @@ export default function GamePage({ params }: { params: { id: string } }) {
             <div className="flex flex-row justify-end">
               <Button variant="outline">Fund</Button>
             </div>
+            <div>
+              <div className="flex flex-col">
+                <div className="text-lg">Project milestones:</div>
+                <Button variant="link" className="justify-start">
+                  • Mainet launched
+                </Button>
+                <Button variant="link" className="justify-start">
+                  • Smart contract audit
+                </Button>
+                <Button variant="link" className="justify-start">
+                  • Token economy launched
+                </Button>
+                <Button variant="link" className="justify-start">
+                  • Update marketplace
+                </Button>
+              </div>
+            </div>
           </div>
         )}
         {game.is_active && (
