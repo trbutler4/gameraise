@@ -29,18 +29,22 @@ export default function GameHero({
   is_pending,
 }: GameHeroProps) {
   return (
-    <Card onClick={onCardPressed}>
-      <CardHeader className="flex flex-row">
+    <Card onClick={onCardPressed} className="bg-black">
+      <CardHeader className="flex flex-row text-white">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="text-white">
         <div className="flex h-full flex-col justify-start">
           <div className="mb-auto">{description}</div>
         </div>
-        <GameProgressBar
-          requestedAmount={requestedAmount}
-          currentAmount={currentAmount}
-        />
+        {/*
+
+          <GameProgressBar
+            requestedAmount={requestedAmount}
+            currentAmount={currentAmount}
+          />
+
+          */}
       </CardContent>
     </Card>
   )

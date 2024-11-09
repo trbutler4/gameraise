@@ -15,13 +15,14 @@ export default function GetFunded() {
       </div>
       <section className="space-y-16 p-4">
         <div>
-          <Card>
-            <CardHeader className="mb-4 text-2xl font-bold">
-              Have an idea for a cool game? Get funding and start building!
+          <Card className="bg-black">
+            <CardHeader className="mb-4 text-2xl font-bold text-white">
+              Bullish onchain gaming? Get funding and start building!
             </CardHeader>
-            <CardContent className="flex flex-col justify-end">
+            <CardContent className="flex flex-row justify-end">
               <Button
-                className="bg-secondary"
+                className="w-32 text-white"
+                variant="outline"
                 onClick={() => router.push("/application")}
               >
                 Apply
@@ -31,15 +32,15 @@ export default function GetFunded() {
         </div>
 
         <div>
-          <Card>
-            <CardHeader className="mb-4 text-2xl font-bold">
-              Check out previously funded games and their progress
+          <Card className="bg-black">
+            <CardHeader className="mb-4 text-2xl font-bold text-white">
+              Check out previously funded games below
             </CardHeader>
             <CardContent className="flex flex-col justify-center space-y-4">
-              <Button className="bg-secondary">Crosswordle</Button>
-              <Button className="bg-secondary">Loot Survivor</Button>
-              <Button className="bg-secondary">Force Prime</Button>
-              <Button className="bg-secondary">Jokers of Neon</Button>
+              <Button className="text-lg text-white">Crosswordle</Button>
+              <Button className="text-lg text-white">Loot Survivor</Button>
+              <Button className="text-lg text-white">Force Prime</Button>
+              <Button className="text-lg text-white">Jokers of Neon</Button>
             </CardContent>
           </Card>
         </div>

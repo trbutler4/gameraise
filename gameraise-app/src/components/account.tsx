@@ -70,8 +70,12 @@ export default function Account() {
 
   if (!user) {
     return (
-      <Button className="bg-white" onClick={() => router.push("/login")}>
-        <div className="font-lg text-black">Get Started</div>
+      <Button
+        variant="link"
+        className="text-xl text-white"
+        onClick={() => router.push("/login")}
+      >
+        Login
       </Button>
     )
   }

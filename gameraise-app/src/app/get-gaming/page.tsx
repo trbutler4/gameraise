@@ -30,17 +30,22 @@ export default function GetGaming() {
 
   return (
     <div>
-      {games.map((game) => (
-        <GameHero
-          title={game.title}
-          description={game.description}
-          key={game.id}
-          requestedAmount={game.total_amount_usd}
-          currentAmount={game.current_amount_usd}
-          requestedDuration={game.duration}
-          onCardPressed={() => router.push(`/game/${game.id}`)}
-        />
-      ))}
+      <div className="my-8 flex items-center justify-center text-xl text-white">
+        Welcome to the Dungeon
+      </div>
+      <div className="flex flex-col justify-evenly space-y-8 px-12">
+        {games.map((game) => (
+          <GameHero
+            title={game.title}
+            description={game.description}
+            key={game.id}
+            requestedAmount={game.total_amount_usd}
+            currentAmount={game.current_amount_usd}
+            requestedDuration={game.duration}
+            onCardPressed={() => router.push(`/game/${game.id}`)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

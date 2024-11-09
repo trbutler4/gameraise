@@ -4,9 +4,9 @@ interface GameProgressBarProps {
 }
 export default function GameProgressBar(props: GameProgressBarProps) {
   return (
-    <div className="my-4 h-full w-full bg-gray-200">
+    <div className="my-4 h-full w-full border border-white bg-black">
       <div
-        className="h-4 w-full bg-blue-500"
+        className="h-8 w-full bg-white"
         style={{
           width: `${(props.currentAmount / props.requestedAmount) * 100}%`,
           marginTop: `auto`,

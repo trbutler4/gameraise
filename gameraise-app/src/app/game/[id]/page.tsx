@@ -36,20 +36,28 @@ export default function GamePage({ params }: { params: { id: string } }) {
   if (!game) return <div>Game not found</div>
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center text-white">
       <div className="text-2xl font-bold">{game.title}</div>
+      <div className="my-6 text-xl font-bold">{game.description}</div>
       <div className="flex w-2/3 flex-col items-center justify-center">
         {game.is_proposed && (
-          <>
-            <div>Status: State 1 (Open Proposal)</div>
-            <GameProgressBar
-              currentAmount={game.current_amount_usd}
-              requestedAmount={game.total_amount_usd}
-            />
-            <div>
-              <Button>Contribute</Button>
+          <div className="flex w-2/3 flex-col">
+            <div className="flex flex-row items-center justify-center">
+              <div className="mr-4">fund: </div>
+              <GameProgressBar
+                currentAmount={game.current_amount_usd}
+                requestedAmount={game.total_amount_usd}
+              />
+              <div className="ml-4">{`${game.current_amount_usd}/${game.total_amount_usd}`}</div>
             </div>
-          </>
+            <div className="flex flex-row">
+              <div className="mr-4">Status:</div>
+              <div>State 1 (Open Proposal)</div>
+            </div>
+            <div className="flex flex-row justify-end">
+              <Button variant="outline">Fund</Button>
+            </div>
+          </div>
         )}
         {game.is_active && (
           <>

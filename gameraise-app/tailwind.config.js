@@ -4,10 +4,10 @@ export const colorPallate = {
   ring: "hsl(var(--ring))",
   background: "hsl(var(--background))",
   foreground: "hsl(var(--foreground))",
-  primary: {
-    DEFAULT: "hsl(var(--primary))",
-    foreground: "hsl(var(--primary-foreground))",
-  },
+  //  primary: {
+  //    DEFAULT: "hsl(var(--primary))",
+  //    foreground: "hsl(var(--primary-foreground))",
+  //  },
   secondary: {
     DEFAULT: "hsl(var(--secondary))",
     foreground: "hsl(var(--secondary-foreground))",
@@ -132,6 +132,9 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        sans: ["JetBrains Mono"],
       },
     },
   },

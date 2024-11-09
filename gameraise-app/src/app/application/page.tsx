@@ -100,13 +100,13 @@ function ApplicationForm() {
   }
 
   return (
-    <Form {...form}>
+    <Form {...form} className="text-white">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Game Title</FormLabel>
               <FormControl>
                 <Input placeholder="Tetris" {...field} />
@@ -119,7 +119,7 @@ function ApplicationForm() {
           control={form.control}
           name="description"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Game Description</FormLabel>
               <FormControl>
                 <Input
@@ -138,7 +138,7 @@ function ApplicationForm() {
           control={form.control}
           name="author"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Game Studio/Author</FormLabel>
               <FormControl>
                 <Input placeholder="Ubisoft" {...field} />
@@ -151,7 +151,7 @@ function ApplicationForm() {
           control={form.control}
           name="github_url"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Github Link</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
@@ -164,7 +164,7 @@ function ApplicationForm() {
           control={form.control}
           name="twitter_url"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Twitter Link</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
@@ -177,7 +177,7 @@ function ApplicationForm() {
           control={form.control}
           name="discord_url"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Discord Link</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
@@ -190,7 +190,7 @@ function ApplicationForm() {
           control={form.control}
           name="website_url"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Website Link</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} />
@@ -203,7 +203,7 @@ function ApplicationForm() {
           control={form.control}
           name="amount"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Funding Amount (USDC)</FormLabel>
               <FormControl>
                 <Input
@@ -224,7 +224,7 @@ function ApplicationForm() {
           control={form.control}
           name="duration"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="text-white">
               <FormLabel>Funding Duration (days)</FormLabel>
               <FormControl>
                 <Input
@@ -241,7 +241,15 @@ function ApplicationForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div className="flex items-center justify-center">
+          <Button
+            type="submit"
+            variant="outline"
+            className="bg-black text-white"
+          >
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   )
