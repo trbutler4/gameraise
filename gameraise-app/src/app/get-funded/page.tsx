@@ -1,7 +1,13 @@
+"use client"
+
+import { useRouter } from "next/navigation"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 export default function GetFunded() {
+  const router = useRouter()
+
   return (
     <>
       <div className="flex w-screen items-center justify-center">
@@ -14,7 +20,12 @@ export default function GetFunded() {
               Have an idea for a cool game? Get funding and start building!
             </CardHeader>
             <CardContent className="flex flex-col justify-end">
-              <Button className="bg-secondary">Apply</Button>
+              <Button
+                className="bg-secondary"
+                onClick={() => router.push("/application")}
+              >
+                Apply
+              </Button>
             </CardContent>
           </Card>
         </div>
