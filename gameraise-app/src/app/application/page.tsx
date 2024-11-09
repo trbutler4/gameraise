@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { supabase } from "@/utils/supabase"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
@@ -43,6 +44,8 @@ export default function ApplicationPage() {
 }
 
 function ApplicationForm() {
+  const router = useRouter()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,6 +59,7 @@ function ApplicationForm() {
       discord_url: "",
       website_url: "",
       platform: "", // Add any default platform value if needed
+      backer_perks: [],
     },
   })
 
@@ -74,28 +78,32 @@ function ApplicationForm() {
       platform,
     } = values
 
-    const { error } = await supabase.from("game").insert({
-      title,
-      description,
-      author_name: author,
-      author_address: "0x123", // TODO
-      total_amount_usd: amount,
-      current_amount_usd: 0,
-      duration_days: duration,
-      is_proposed: true,
-      is_streaming: false,
-      is_live: false,
-      social_github_url: github_url,
-      social_twitter_url: twitter_url,
-      social_discord_url: discord_url,
-      platform,
-      website_url,
-    })
+    const { data, error } = await supabase
+      .from("game")
+      .insert({
+        title,
+        description,
+        author_name: author,
+        author_address: "0x123", // TODO
+        total_amount_usd: amount,
+        current_amount_usd: 0,
+        duration_days: duration,
+        is_proposed: true,
+        is_streaming: false,
+        is_live: false,
+        social_github_url: github_url,
+        social_twitter_url: twitter_url,
+        social_discord_url: discord_url,
+        platform,
+        website_url,
+      })
+      .select()
 
     if (error) {
       console.error(error)
     } else {
-      console.log("inserted game into db")
+      console.log("inserted game into db with id:", data[0].id)
+      router.push(`/game/${data[0].id}`)
     }
   }
 

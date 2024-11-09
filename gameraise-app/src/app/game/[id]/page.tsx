@@ -39,41 +39,47 @@ export default function GamePage({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex w-full flex-col items-center justify-center text-white">
-      <Card className="relative flex h-36 w-48 items-center justify-center overflow-hidden">
-        <Image
-          src={game.pfp_image_url}
-          alt={game.title}
-          width={500}
-          height={500}
-          className="object-fill"
-        />
-      </Card>
+      {game.pfp_image_url && (
+        <Card className="relative flex h-36 w-48 items-center justify-center overflow-hidden">
+          <Image
+            src={game.pfp_image_url}
+            alt={game.title}
+            width={500}
+            height={500}
+            className="object-fill"
+          />
+        </Card>
+      )}
       <div className="my-4 text-4xl font-bold">{game.title}</div>
-      <div>
-        {game.social_github_url && (
-          <Button onClick={() => window.open(game.social_github_url, "_blank")}>
-            <FaGithub size={24} />
-          </Button>
-        )}
-      </div>
-      <div>
-        {game.social_twitter_url && (
-          <Button
-            onClick={() => window.open(game.social_twitter_url, "_blank")}
-          >
-            <FaTwitter size={24} />
-          </Button>
-        )}
-      </div>
-      <div>
-        {game.social_discord_url && (
-          <Button
-            onClick={() => window.open(game.social_discord_url, "_blank")}
-          >
-            <FaDiscord size={24} />
-          </Button>
-        )}
-      </div>
+      <Card className="flex flex-row border-none bg-black">
+        <div>
+          {game.social_github_url && (
+            <Button
+              onClick={() => window.open(game.social_github_url, "_blank")}
+            >
+              <FaGithub size={24} color="white" />
+            </Button>
+          )}
+        </div>
+        <div>
+          {game.social_twitter_url && (
+            <Button
+              onClick={() => window.open(game.social_twitter_url, "_blank")}
+            >
+              <FaTwitter size={24} color="white" />
+            </Button>
+          )}
+        </div>
+        <div>
+          {game.social_discord_url && (
+            <Button
+              onClick={() => window.open(game.social_discord_url, "_blank")}
+            >
+              <FaDiscord size={24} color="white" />
+            </Button>
+          )}
+        </div>
+      </Card>
       <div className="my-6 w-2/3 text-center text-xl font-bold">
         {game.description}
       </div>
