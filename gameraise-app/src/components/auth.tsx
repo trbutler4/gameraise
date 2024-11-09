@@ -101,7 +101,7 @@ function AuthContent() {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="text-white">
                     <FormControl>
                       <Input
                         id="email"
@@ -116,7 +116,7 @@ function AuthContent() {
               />
               <LoadingButton
                 type="submit"
-                className="w-full font-semibold"
+                className="w-full font-semibold text-black"
                 disabled={!form.formState.isValid}
                 loading={state.loading && loadingAction === "passkey"}
                 onClick={() =>
@@ -126,20 +126,23 @@ function AuthContent() {
                 Continue with passkey
               </LoadingButton>
 
-              <LoadingButton
-                type="button"
-                variant="outline"
-                className="w-full font-semibold"
-                disabled={!form.formState.isValid}
-                onClick={() =>
-                  handleEmailLogin(form.getValues().email as Email)
-                }
-                loading={state.loading && loadingAction === "email"}
-              >
-                Continue with email
-              </LoadingButton>
+              {/*
+                <LoadingButton
+                  type="button"
+                  variant="outline"
+                  className="w-full font-semibold"
+                  disabled={!form.formState.isValid}
+                  onClick={() =>
+                    handleEmailLogin(form.getValues().email as Email)
+                  }
+                  loading={state.loading && loadingAction === "email"}
+                >
+                  Continue with email
+                </LoadingButton>
+                */}
             </form>
           </Form>
+          {/*
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <Separator className="w-full" />
@@ -150,9 +153,10 @@ function AuthContent() {
               </span>
             </div>
           </div>
-          <GoogleAuth />
-          <AppleAuth />
-          <FacebookAuth />
+            <GoogleAuth />
+            <AppleAuth />
+            <FacebookAuth />
+            */}
         </CardContent>
       </Card>
       <Legal />

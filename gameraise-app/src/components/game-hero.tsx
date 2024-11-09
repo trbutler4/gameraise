@@ -1,5 +1,6 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
 import GameProgressBar from "./game-progress-bar"
@@ -12,9 +13,10 @@ interface GameHeroProps {
   currentAmount: number
   requestedDuration: number
   onCardPressed: () => void
-  is_pending: boolean
+  is_proposed: boolean
   is_active: boolean
   is_live: boolean
+  background_url: string
 }
 
 export default function GameHero({
@@ -26,10 +28,19 @@ export default function GameHero({
   onCardPressed,
   is_live,
   is_active,
-  is_pending,
+  is_proposed,
+  background_url,
 }: GameHeroProps) {
+  console.log(background_url)
   return (
-    <Card onClick={onCardPressed} className="bg-black">
+    <Card
+      onClick={onCardPressed}
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${background_url})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <CardHeader className="flex flex-row text-white">
         <CardTitle>{title}</CardTitle>
       </CardHeader>

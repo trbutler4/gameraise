@@ -73,6 +73,10 @@ export default function GetGaming() {
             currentAmount={game.current_amount_usd}
             requestedDuration={game.duration}
             onCardPressed={() => router.push(`/game/${game.id}`)}
+            is_live={game.is_live}
+            is_proposed={game.is_proposed}
+            is_active={game.is_active}
+            background_url={game.bg_image_url}
           />
         ))}
       </div>

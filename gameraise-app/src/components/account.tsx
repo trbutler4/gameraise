@@ -64,7 +64,7 @@ export default function Account() {
     logout()
   }
 
-  if (loading) {
+  if (loading || state.loading) {
     return <Skeleton className="h-12 w-52" />
   }
 
