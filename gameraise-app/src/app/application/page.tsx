@@ -19,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/hooks/use-toast"
 
 const formSchema = z.object({
   title: z.string().min(1).max(50),
@@ -85,17 +84,17 @@ function ApplicationForm() {
           name="amount"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Funding Amount</FormLabel>
+              <FormLabel>Funding Amount (USDC)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
-                  placeholder="Total amount of funding"
+                  placeholder="10000"
                   {...field}
                   onChange={(e) => field.onChange(Number(e.target.value))}
                 />
               </FormControl>
               <FormDescription>
-                Everything a backer needs to know about your game.
+                Total amount of funding desired.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -103,43 +102,20 @@ function ApplicationForm() {
         />
         <FormField
           control={form.control}
-          name="dob"
+          name="duration"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+            <FormItem>
+              <FormLabel>Funding Duration (days)</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="90"
+                  {...field}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                />
+              </FormControl>
               <FormDescription>
-                Your date of birth is used to calculate your age.
+                Total duration over which funds will be streamed.
               </FormDescription>
               <FormMessage />
             </FormItem>
