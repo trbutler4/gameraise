@@ -14,6 +14,13 @@ extra_search_path = ["public", "extensions"]
 # The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
 # for accidental or malicious requests.
 max_rows = 1000
+cors_allowed_origins = [
+    "http://localhost:3000",
+    "https://proud-maggot-initially.ngrok-free.app",
+    "https://*.ngrok-free.app",                      # Allow all ngrok subdomains
+    "http://127.0.0.1:3000",
+    "*",                                             # For development only - remove in production!
+]
 
 [api.tls]
 enabled = false
