@@ -1,5 +1,6 @@
 "use client"
 
+import { supabase } from "@/utils/supabase"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
@@ -44,10 +45,58 @@ export default function ApplicationPage() {
 function ApplicationForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      description: "",
+      author: "",
+      amount: 0,
+      duration: 0,
+      github_url: "",
+      twitter_url: "",
+      discord_url: "",
+      website_url: "",
+      platform: "", // Add any default platform value if needed
+    },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+    const {
+      title,
+      description,
+      author,
+      amount,
+      duration,
+      github_url,
+      twitter_url,
+      discord_url,
+      website_url,
+      platform,
+    } = values
+
+    const { error } = await supabase.from("game").insert({
+      title,
+      description,
+      author_name: author,
+      author_address: "0x123", // TODO
+      total_amount_usd: amount,
+      current_amount_usd: 0,
+      duration_days: duration,
+      is_proposed: true,
+      is_streaming: false,
+      is_live: false,
+      social_github_url: github_url,
+      social_twitter_url: twitter_url,
+      social_discord_url: discord_url,
+      platform,
+      website_url,
+    })
+
+    if (error) {
+      console.error(error)
+    } else {
+      console.log("inserted game into db")
+    }
   }
 
   return (

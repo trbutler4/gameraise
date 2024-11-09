@@ -8,6 +8,8 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: z.string().optional(),
     NEXT_PUBLIC_BASE_URL: z.string().min(1),
     NEXT_PUBLIC_ALCHEMY_API_KEY: z.string().min(1),
+    NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
   },
   server: {
     TURNKEY_API_PUBLIC_KEY: z.string().min(1),
@@ -20,6 +22,8 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     NEXT_PUBLIC_ALCHEMY_API_KEY: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   },
   extends: [vercel()],
 })
