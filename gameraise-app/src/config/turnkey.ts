@@ -25,5 +25,5 @@ export const turnkeyConfig = {
   passkey: {
     rpId: env.NEXT_PUBLIC_RP_ID || "localhost",
   },
-  rpcUrl: `https://eth-sepolia.g.alchemy.com/v2/${env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+  rpcUrl: "http://localhost:8545", //`https://arb-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API}`,
 }

@@ -104,6 +104,14 @@ export default function Account() {
           <UserIcon className="mr-2 h-4 w-4" />
           <span>Account</span>
         </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            navigator.clipboard.writeText(selectedAccount?.address || "")
+          }}
+        >
+          <UserIcon className="mr-2 h-4 w-4" />
+          <span>{selectedAccount?.address}</span>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/settings")}>
           <SettingsIcon className="mr-2 h-4 w-4" />
