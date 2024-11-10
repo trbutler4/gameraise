@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: "imgs.search.brave.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "soqgjjvexhyhcrbnwuwd.supabase.co",
+        port: "",
+      },
     ],
   },
 }

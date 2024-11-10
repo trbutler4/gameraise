@@ -31,26 +31,51 @@ export default function Landing() {
             Explore games across ecosystems
           </div>
           <div className="flex space-x-8">
-            <Image src={xaiLogo} alt="XAI Logo" width={100} height={100} />
-            <Image
-              src={solanaLogo}
-              alt="solana Logo"
-              width={100}
-              height={100}
-            />
-            <Image
-              src={avaxLogo}
-              alt="Avalanche Logo"
-              width={100}
-              height={100}
-            />
-            <Image src={baseLogo} alt="Base Logo" width={100} height={100} />
-            <Image
-              src={starknetLogo}
-              alt="StarkNet Logo"
-              width={100}
-              height={100}
-            />
+            <Button
+              variant="ghost"
+              onClick={() => router.push("/get-gaming?platform=xai")}
+            >
+              <Image src={xaiLogo} alt="XAI Logo" width={100} height={100} />
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => router.push("/get-gaming?platform=solana")}
+            >
+              <Image
+                src={solanaLogo}
+                alt="solana Logo"
+                width={100}
+                height={100}
+              />
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => router.push("/get-gaming?platform=avalanche")}
+            >
+              <Image
+                src={avaxLogo}
+                alt="Avalanche Logo"
+                width={100}
+                height={100}
+              />
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => router.push("/get-gaming?platform=base")}
+            >
+              <Image src={baseLogo} alt="Base Logo" width={100} height={100} />
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => router.push("/get-gaming?platform=starknet")}
+            >
+              <Image
+                src={starknetLogo}
+                alt="StarkNet Logo"
+                width={100}
+                height={100}
+              />
+            </Button>
           </div>
         </div>
         <div className="mt-24 flex flex-col items-center justify-center bg-black">

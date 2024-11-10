@@ -1,12 +1,15 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useWallets } from "@/providers/wallet-provider"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 export default function GetFunded() {
   const router = useRouter()
+  const { state } = useWallets()
+  const { selectedWallet, selectedAccount } = state
 
   return (
     <>
@@ -24,6 +27,7 @@ export default function GetFunded() {
                 className="w-32 text-white"
                 variant="outline"
                 onClick={() => router.push("/application")}
+                disabled={!selectedAccount?.address}
               >
                 Apply
               </Button>

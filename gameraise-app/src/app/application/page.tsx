@@ -96,7 +96,12 @@ function ApplicationForm() {
           )
 
       if (backgroundError) throw backgroundError
-      background_image_url = backgroundData?.path
+
+      const { data } = supabase.storage
+        .from("game-images")
+        .getPublicUrl(backgroundData.path)
+
+      background_image_url = data.publicUrl
     }
 
     if (values.profile_image) {
@@ -108,7 +113,10 @@ function ApplicationForm() {
         )
 
       if (profileError) throw profileError
-      profile_image_url = profileData?.path
+      const { data } = supabase.storage
+        .from("game-images")
+        .getPublicUrl(profileData.path)
+      profile_image_url = data.publicUrl
     }
 
     const {
@@ -144,8 +152,8 @@ function ApplicationForm() {
         social_discord_url: discord_url,
         platform,
         website_url,
-        bg_image_url: background_image,
-        pfp_image_url: profile_image,
+        bg_image_url: background_image_url,
+        pfp_image_url: profile_image_url,
       })
       .select()
 

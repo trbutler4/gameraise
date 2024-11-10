@@ -30,13 +30,13 @@ import {
 } from "@/components/ui/dropdown-menu"
 import GameHero from "@/components/game-hero"
 
-import { Skeleton } from "./ui/skeleton"
-
 export default function GetGaming() {
+  const searchParams = new URLSearchParams(window.location.search)
+  const ecosystemFromRoute = searchParams.get("platform")
   const [games, setGames] = useState<any[]>([])
   const router = useRouter()
   const [selectedEcosystem, setSelectedEcosystem] = useState<string | null>(
-    null
+    ecosystemFromRoute
   )
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null)
 
@@ -174,6 +174,10 @@ function EcosystemDropdown({
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => onEcosystemChange("avalanche")}>
           Avalanche
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => onEcosystemChange("solana")}>
+          Solana
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
