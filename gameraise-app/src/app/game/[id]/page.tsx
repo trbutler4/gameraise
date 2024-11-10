@@ -46,7 +46,7 @@ export default function GamePage({ params }: { params: { id: string } }) {
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null
 
-    const refreshRate = 500
+    const refreshRate = 1000
 
     if (game?.is_streaming) {
       // Initialize amount when streaming starts
@@ -54,12 +54,10 @@ export default function GamePage({ params }: { params: { id: string } }) {
 
       intervalId = setInterval(() => {
         setAmount((prevAmount) => {
-          const increment = Math.round(
-            game.total_amount_usd /
-              (game.duration_days * 24 * (3600 / refreshRate))
-          )
+          const increment =
+            game.total_amount_usd / (game.duration_days * 24 * 3600)
           const newAmount = Math.min(
-            Math.round(prevAmount + increment),
+            prevAmount + increment,
             game.current_amount_usd
           )
 
@@ -252,7 +250,7 @@ export default function GamePage({ params }: { params: { id: string } }) {
                 currentAmount={amount}
                 requestedAmount={game.total_amount_usd}
               />
-              <div className="ml-4">{`${amount}/${game.total_amount_usd}`}</div>
+              <div className="ml-4">{`${amount.toFixed(5)}/${game.total_amount_usd}`}</div>
             </div>
             <div className="flex flex-row">
               <div className="mr-4">Status:</div>
