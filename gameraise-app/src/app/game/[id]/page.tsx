@@ -214,7 +214,7 @@ export default function GamePage({ params }: { params: { id: string } }) {
                 variant="outline"
                 onClick={() =>
                   fillFundingAmount(
-                    game.total_amount_usd / 4,
+                    Math.floor(game.total_amount_usd / 4),
                     game.current_amount_usd,
                     game.total_amount_usd
                   )
