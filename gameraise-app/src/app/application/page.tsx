@@ -1,6 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useWallets } from "@/providers/wallet-provider"
 import { supabase } from "@/utils/supabase"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
@@ -45,6 +46,8 @@ export default function ApplicationPage() {
 
 function ApplicationForm() {
   const router = useRouter()
+  const { state } = useWallets()
+  const { selectedWallet, selectedAccount } = state
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -84,7 +87,7 @@ function ApplicationForm() {
         title,
         description,
         author_name: author,
-        author_address: "0x123", // TODO
+        author_address: selectedAccount?.address,
         total_amount_usd: amount,
         current_amount_usd: 0,
         duration_days: duration,

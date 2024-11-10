@@ -10,10 +10,13 @@ export default function Dashboard() {
       <TransactionsProvider>
         <WalletCard />
 
-        <div className="flex flex-col gap-4">
-          <Assets />
-          <Activity />
-        </div>
+        {/*
+          <div className="flex flex-col gap-4">
+            <Assets />
+            <Activity />
+          </div>
+
+          */}
       </TransactionsProvider>
     </main>
   )

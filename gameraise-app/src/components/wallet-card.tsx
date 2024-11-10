@@ -4,8 +4,10 @@ import { useEffect, useState } from "react"
 import { useWallets } from "@/providers/wallet-provider"
 import { CopyIcon, Download, HandCoins, Upload } from "lucide-react"
 import { toast } from "sonner"
-import { formatEther } from "viem"
+import { createPublicClient, formatEther, http } from "viem"
+import { hardhat } from "viem/chains"
 
+import { turnkeyConfig } from "@/config/turnkey"
 import { truncateAddress } from "@/lib/utils"
 import { fundWallet } from "@/lib/web3"
 import { useTokenPrice } from "@/hooks/use-token-price"
@@ -31,12 +33,57 @@ export default function WalletCard() {
   const { user } = useUser()
   const [usdAmount, setUsdAmount] = useState<number | undefined>(undefined)
 
-  useEffect(() => {
-    if (ethPrice && selectedAccount?.balance !== undefined) {
-      const balanceInEther = formatEther(selectedAccount?.balance)
-      setUsdAmount(Number(balanceInEther) * ethPrice)
+  const fetchTokenBalance = async () => {
+    if (!selectedAccount?.address) {
+      console.log("connect wallet first")
+      return
     }
-  }, [ethPrice, selectedAccount?.balance])
+    const streamTokenAddress = "0x90Dd5250fD06b9E6E3d048cAF7f26Da609cb67cC"
+    const erc20Abi = [
+      {
+        inputs: [{ name: "account", type: "address" }],
+        name: "balanceOf",
+        outputs: [{ name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "decimals",
+        outputs: [{ name: "", type: "uint8" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "symbol",
+        outputs: [{ name: "", type: "string" }],
+        stateMutability: "view",
+        type: "function",
+      },
+    ]
+
+    const publicClient = createPublicClient({
+      chain: hardhat,
+      transport: http(turnkeyConfig.rpcUrl),
+    })
+
+    const tokenBalance = await publicClient.readContract({
+      address: streamTokenAddress,
+      abi: erc20Abi,
+      functionName: "balanceOf",
+      args: [selectedAccount.address],
+    })
+
+    // just treating the token like its a USDC amount
+    if (tokenBalance) {
+      setUsdAmount(tokenBalance)
+    }
+  }
+
+  useEffect(() => {
+    fetchTokenBalance()
+  }, [ethPrice, selectedAccount])
 
   return (
     <Card className="w-full">
@@ -49,7 +96,7 @@ export default function WalletCard() {
       </CardHeader>
       <CardContent className="space-y-1">
         <div className="text-4xl font-bold">
-          Balance: ${usdAmount?.toFixed(2) || "0.00"}
+          Balance: ${usdAmount?.toString() || "0.00"}
         </div>
       </CardContent>
     </Card>

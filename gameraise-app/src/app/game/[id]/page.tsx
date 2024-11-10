@@ -5,6 +5,7 @@ import Image from "next/image"
 import { supabase } from "@/utils/supabase"
 import { FaDiscord, FaGithub, FaTwitter } from "react-icons/fa"
 
+import { useSuperfluid } from "@/hooks/use-superfluid"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,6 +15,10 @@ export default function GamePage({ params }: { params: { id: string } }) {
   const [game, setGame] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [contributionAmount, setContributionAmount] = useState()
+  const { createPool, createStream, message } = useSuperfluid()
+
+  const [amount, setAmount] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
 
   useEffect(() => {
     async function fetchGame() {
@@ -27,12 +32,115 @@ export default function GamePage({ params }: { params: { id: string } }) {
         console.error("Error fetching game:", error)
       } else {
         setGame(data)
+        // Only update amount if not streaming
+        if (!data.is_streaming) {
+          setAmount(data.current_amount_usd)
+        }
       }
       setLoading(false)
     }
 
     fetchGame()
-  }, [params.id])
+  }, [params.id, game])
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout | null = null
+
+    if (game?.is_streaming) {
+      // Initialize amount when streaming starts
+      setAmount(game.streamed_amount || 0)
+
+      intervalId = setInterval(() => {
+        setAmount((prevAmount) => {
+          const increment = 1000
+          const newAmount = Math.min(
+            prevAmount + increment,
+            game.current_amount_usd
+          )
+
+          // Update database with streamed amount
+          supabase
+            .from("game")
+            .update({
+              streamed_amount: newAmount,
+              ...(newAmount >= game.current_amount_usd
+                ? {
+                    is_streaming: false,
+                    is_live: true,
+                  }
+                : {}),
+            })
+            .eq("id", params.id)
+            .single()
+            .then(({ data: updatedData, error: updateError }) => {
+              if (!updateError && updatedData) {
+                if (newAmount >= game.current_amount_usd) {
+                  clearInterval(intervalId!)
+                  setGame(updatedData)
+                }
+              }
+            })
+
+          return newAmount
+        })
+      }, 1000)
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId)
+    }
+  }, [
+    game?.is_streaming,
+    game?.streamed_amount,
+    game?.current_amount_usd,
+    params.id,
+  ])
+
+  async function fillFundingAmount(
+    fundAmount: number,
+    currentAmount: number,
+    totalAmount: number
+  ) {
+    try {
+      if (currentAmount + fundAmount >= totalAmount) {
+        // Update current_amount and start streaming
+        const { data, error } = await supabase
+          .from("game")
+          .update({
+            current_amount_usd: currentAmount + fundAmount,
+            streamed_amount: 0, // Start streaming from 0
+            is_streaming: true,
+            is_proposed: false,
+          })
+          .eq("id", params.id)
+          .single()
+
+        if (error) {
+          console.error("Error updating funding amount:", error)
+          return
+        }
+
+        setGame(data)
+        setAmount(0) // Start animation from 0
+      } else {
+        const { data, error } = await supabase
+          .from("game")
+          .update({ current_amount_usd: fundAmount + currentAmount })
+          .eq("id", params.id)
+          .single()
+
+        if (error) {
+          console.error("Error updating funding amount:", error)
+          return
+        }
+
+        setGame(data)
+        setAmount(fundAmount + currentAmount)
+      }
+    } catch (err) {
+      console.error("Error in fillFundingAmount:", err)
+    }
+  }
 
   if (loading) return <div>Loading...</div>
   if (!game) return <div>Game not found</div>
@@ -99,7 +207,18 @@ export default function GamePage({ params }: { params: { id: string } }) {
               <div>State 1 (Open Proposal)</div>
             </div>
             <div className="flex flex-row justify-end">
-              <Button variant="outline">Fund</Button>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  fillFundingAmount(
+                    game.total_amount_usd / 2,
+                    game.current_amount_usd,
+                    game.total_amount_usd
+                  )
+                }
+              >
+                Fund
+              </Button>
             </div>
             <div>
               <div className="flex flex-col">
@@ -125,10 +244,10 @@ export default function GamePage({ params }: { params: { id: string } }) {
             <div className="flex flex-row items-center justify-center">
               <div className="mr-4">fund: </div>
               <GameProgressBar
-                currentAmount={game.streamed_amount}
+                currentAmount={amount}
                 requestedAmount={game.total_amount_usd}
               />
-              <div className="ml-4">{`${game.streamed_amount}/${game.total_amount_usd}`}</div>
+              <div className="ml-4">{`${amount}/${game.total_amount_usd}`}</div>
             </div>
             <div className="flex flex-row">
               <div className="mr-4">Status:</div>
