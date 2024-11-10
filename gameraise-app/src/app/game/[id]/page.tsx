@@ -46,15 +46,20 @@ export default function GamePage({ params }: { params: { id: string } }) {
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null
 
+    const refreshRate = 500
+
     if (game?.is_streaming) {
       // Initialize amount when streaming starts
       setAmount(game.streamed_amount || 0)
 
       intervalId = setInterval(() => {
         setAmount((prevAmount) => {
-          const increment = 10000
+          const increment = Math.round(
+            game.total_amount_usd /
+              (game.duration_days * 24 * (3600 / refreshRate))
+          )
           const newAmount = Math.min(
-            prevAmount + increment,
+            Math.round(prevAmount + increment),
             game.current_amount_usd
           )
 
@@ -83,7 +88,7 @@ export default function GamePage({ params }: { params: { id: string } }) {
 
           return newAmount
         })
-      }, 1000)
+      }, refreshRate)
     }
 
     return () => {
