@@ -9,9 +9,9 @@ export default function GetGamingLayout({
   children: React.ReactNode
 }) {
   return (
-    <main className=" h-screen bg-muted/40 dark:bg-neutral-950/80">
+    <main className=" h-screen bg-muted/40 dark:bg-neutral-950/80 font-mono">
       <NavMenu />
-      <div className="">{children}</div>
+      <div className="font-mono">{children}</div>
       <Toaster />
     </main>
   )

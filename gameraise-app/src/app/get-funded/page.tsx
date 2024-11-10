@@ -14,7 +14,7 @@ export default function GetFunded() {
   return (
     <>
       <div className="flex w-screen items-center justify-center">
-        <h2 className="mb-4 text-2xl font-bold">GET FUNDING</h2>
+        <h2 className="mb-4 text-2xl font-mono">GET FUNDING</h2>
       </div>
       <section className="space-y-16 p-4">
         <div>

@@ -11,7 +11,7 @@ export default function ApplicationLayout({
   return (
     <main className=" h-screen bg-muted/40 dark:bg-neutral-950/80">
       <NavMenu />
-      <div className="">{children}</div>
+      <div className="font-mono">{children}</div>
       <Toaster />
     </main>
   )

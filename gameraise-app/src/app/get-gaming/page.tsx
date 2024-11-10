@@ -124,7 +124,7 @@ function StatusDropdown({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 bg-black text-white">
+      <DropdownMenuContent align="end" className="w-80 bg-black text-white font-mono">
         <DropdownMenuItem onClick={() => onStatusChange("live")}>
           live
         </DropdownMenuItem>
@@ -163,7 +163,7 @@ function EcosystemDropdown({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-80 bg-black text-white">
+      <DropdownMenuContent align="end" className="w-80 bg-black text-white font-mono">
         <DropdownMenuItem onClick={() => onEcosystemChange("starknet")}>
           Starknet
         </DropdownMenuItem>

@@ -134,7 +134,10 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
-        sans: ["JetBrains Mono"],
+        sans: ['JetBrains Mono', 'monospace'],
+        serif: [ 'JetBrains Mono', 'monospace'],
+        mono: ['JetBrains Mono', 'monospace'],
+        bold: ['JetBrains Mono Bold', 'monospace'],
       },
     },
   },
