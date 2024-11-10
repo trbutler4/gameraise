@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation"
 import arbitrumLogo from "@/assets/arbitrum.svg"
 import avaxLogo from "@/assets/avalanche.svg"
 import baseLogo from "@/assets/base.svg"
+import solanaLogo from "@/assets/solana.svg"
 import starknetLogo from "@/assets/starknet.svg"
+import xaiLogo from "@/assets/xai.svg"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -29,9 +31,10 @@ export default function Landing() {
             Explore games across ecosystems
           </div>
           <div className="flex space-x-8">
+            <Image src={xaiLogo} alt="XAI Logo" width={100} height={100} />
             <Image
-              src={arbitrumLogo}
-              alt="Arbitrum Logo"
+              src={solanaLogo}
+              alt="solana Logo"
               width={100}
               height={100}
             />

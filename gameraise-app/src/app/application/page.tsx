@@ -22,6 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 const formSchema = z.object({
   title: z.string().min(1).max(50),
@@ -34,6 +35,8 @@ const formSchema = z.object({
   discord_url: z.string(),
   website_url: z.string(),
   platform: z.string(),
+  background_image: z.instanceof(File).optional(),
+  profile_image: z.instanceof(File).optional(),
 })
 
 export default function ApplicationPage() {
@@ -63,11 +66,51 @@ function ApplicationForm() {
       website_url: "",
       platform: "", // Add any default platform value if needed
       backer_perks: [],
+      background_image: undefined,
+      profile_image: undefined,
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    const formData = new FormData()
+
+    Object.entries(values).forEach(([key, value]) => {
+      if (value instanceof File) {
+        formData.append(key, value)
+      } else {
+        formData.append(key, String(value))
+      }
+    })
+
+    let background_image_url = null
+    let profile_image_url = null
+
+    // Upload background image if it exists
+    if (values.background_image) {
+      const { data: backgroundData, error: backgroundError } =
+        await supabase.storage
+          .from("game-images")
+          .upload(
+            `background/${Date.now()}-${values.background_image.name}`,
+            values.background_image
+          )
+
+      if (backgroundError) throw backgroundError
+      background_image_url = backgroundData?.path
+    }
+
+    if (values.profile_image) {
+      const { data: profileData, error: profileError } = await supabase.storage
+        .from("game-images")
+        .upload(
+          `profile/${Date.now()}-${values.profile_image.name}`,
+          values.profile_image
+        )
+
+      if (profileError) throw profileError
+      profile_image_url = profileData?.path
+    }
+
     const {
       title,
       description,
@@ -79,6 +122,8 @@ function ApplicationForm() {
       discord_url,
       website_url,
       platform,
+      background_image,
+      profile_image,
     } = values
 
     const { data, error } = await supabase
@@ -99,6 +144,8 @@ function ApplicationForm() {
         social_discord_url: discord_url,
         platform,
         website_url,
+        bg_image_url: background_image,
+        pfp_image_url: profile_image,
       })
       .select()
 
@@ -247,6 +294,63 @@ function ApplicationForm() {
               </FormControl>
               <FormDescription>
                 Total duration over which funds will be streamed.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="background_image"
+          render={({ field: { value, onChange, ...field } }) => (
+            <FormItem className="text-white">
+              <FormLabel>Background Image</FormLabel>
+              <FormControl>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="background-image">Upload</Label>
+                  <Input
+                    id="background-image"
+                    type="file"
+                    accept="image/*"
+                    {...field}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      onChange(file)
+                    }}
+                  />
+                </div>
+              </FormControl>
+              <FormDescription>
+                Upload a background image for your game page.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="profile_image"
+          render={({ field: { value, onChange, ...field } }) => (
+            <FormItem className="text-white">
+              <FormLabel>Profile Image</FormLabel>
+              <FormControl>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="profile-image">Upload</Label>
+                  <Input
+                    id="profile-image"
+                    type="file"
+                    accept="image/*"
+                    {...field}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0]
+                      onChange(file)
+                    }}
+                  />
+                </div>
+              </FormControl>
+              <FormDescription>
+                Upload a profile image for your game.
               </FormDescription>
               <FormMessage />
             </FormItem>
